@@ -2,9 +2,9 @@ package org.firstinspires.ftc.teamcode
 
 class Constants {
     companion object {
-        const val BANK_VELOCITY = 1300 * 3
-        const val FAR_VELOCITY = 1900 * 3
-        const val MAX_VELOCITY = 2200 * 3
+        const val BANK_VELOCITY = 1300
+        const val FAR_VELOCITY = 2000
+        const val MAX_VELOCITY = 2200
         const val TELEOP = "TELEOP"
         const val AUTO_BLUE = "AUTO BLUE"
         const val AUTO_RED = " AUTO RED"

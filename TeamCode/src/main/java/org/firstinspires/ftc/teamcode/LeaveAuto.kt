@@ -24,7 +24,6 @@ class LeaveAuto : LinearOpMode() {
         frontRight = hardwareMap.get(DcMotor::class.java, "FR")
         backLeft = hardwareMap.get(DcMotor::class.java, "BL")
         backRight = hardwareMap.get(DcMotor::class.java, "BR")
-
         frontLeft!!.mode = DcMotor.RunMode.RUN_TO_POSITION
         frontLeft!!.direction = DcMotorSimple.Direction.FORWARD
         frontRight!!.mode = DcMotor.RunMode.RUN_TO_POSITION
@@ -33,22 +32,24 @@ class LeaveAuto : LinearOpMode() {
         backLeft!!.direction = DcMotorSimple.Direction.FORWARD
         backRight!!.mode = DcMotor.RunMode.RUN_TO_POSITION
         backRight!!.direction = DcMotorSimple.Direction.REVERSE
+        frontLeft!!.targetPosition =
+            (frontLeft!!.currentPosition + leftDistanceInch * WHEELS_INCHES_TO_TICKS).toInt()
+        frontRight!!.targetPosition =
+            (frontRight!!.currentPosition + rightDistanceInch * WHEELS_INCHES_TO_TICKS).toInt()
+        backLeft!!.targetPosition =
+            (backLeft!!.currentPosition + leftDistanceInch * WHEELS_INCHES_TO_TICKS).toInt()
+        backRight!!.targetPosition =
+            (backRight!!.currentPosition + rightDistanceInch * WHEELS_INCHES_TO_TICKS).toInt()
+
         waitForStart()
         if (opModeIsActive()) {
             timeout.reset()
-            frontLeft!!.targetPosition =
-                (frontLeft!!.currentPosition + leftDistanceInch * WHEELS_INCHES_TO_TICKS).toInt()
-            frontRight!!.targetPosition =
-                (frontRight!!.currentPosition + rightDistanceInch * WHEELS_INCHES_TO_TICKS).toInt()
-            backLeft!!.targetPosition =
-                (backLeft!!.currentPosition + leftDistanceInch * WHEELS_INCHES_TO_TICKS).toInt()
-            backRight!!.targetPosition =
-                (backRight!!.currentPosition + rightDistanceInch * WHEELS_INCHES_TO_TICKS).toInt()
 
-            frontLeft!!.power = abs(speed)
-            frontRight!!.power = abs(speed)
-            backLeft!!.power = abs(speed)
-            backRight!!.power = abs(speed)
+
+            frontLeft!!.power = speed
+            frontRight!!.power = speed
+            backLeft!!.power = speed
+            backRight!!.power = speed
             while (opModeIsActive() && (frontLeft!!.isBusy || frontRight!!.isBusy || backLeft!!.isBusy || backRight!!.isBusy) && timeout.milliseconds() < TIMEOUT_MS) {
                 idle()
             }
