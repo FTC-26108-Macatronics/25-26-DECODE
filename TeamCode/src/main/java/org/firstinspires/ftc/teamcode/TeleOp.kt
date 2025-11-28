@@ -71,7 +71,7 @@ class TeleOp : LinearOpMode() {
         if (gamepad1.right_bumper) {
             servo!!.power = -2.0
         } else if (gamepad1.left_bumper) {
-            servo!!.power = -2.0
+            servo!!.power = 2.0
         }
     }
 
