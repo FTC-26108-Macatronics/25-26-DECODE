@@ -6,14 +6,14 @@ import com.qualcomm.robotcore.hardware.CRServo
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.qualcomm.robotcore.hardware.DcMotorSimple
-import org.firstinspires.ftc.teamcode.Constants.Companion.BANK_VELOCITY
-import org.firstinspires.ftc.teamcode.Constants.Companion.MAX_VELOCITY
 import org.firstinspires.ftc.teamcode.Constants.Companion.FAR_VELOCITY
+import kotlin.math.pow
 
 @TeleOp
 class TeleOp : LinearOpMode() {
     private var flywheel: DcMotor? = null
-//    private var coreHex: DcMotor? = null
+
+    //    private var coreHex: DcMotor? = null
     private var servo: CRServo? = null
     private var frontLeft: DcMotor? = null
     private var frontRight: DcMotor? = null
@@ -72,6 +72,8 @@ class TeleOp : LinearOpMode() {
             servo!!.power = -2.0
         } else if (gamepad1.left_bumper) {
             servo!!.power = 2.0
+        } else {
+            servo!!.power = 0.0
         }
     }
 
@@ -158,9 +160,9 @@ class TeleOp : LinearOpMode() {
         leftBackPower = (forwardBack - strafe) + turn
         rightBackPower = (forwardBack + strafe) - turn
         // Setting Motor Power
-        frontLeft!!.power = leftFrontPower.toDouble()
-        frontRight!!.power = rightFrontPower.toDouble()
-        backLeft!!.power = leftBackPower.toDouble()
-        backRight!!.power = rightBackPower.toDouble()
+        frontLeft!!.power = leftFrontPower.toDouble().pow(2)
+        frontRight!!.power = rightFrontPower.toDouble().pow(2)
+        backLeft!!.power = leftBackPower.toDouble().pow(2)
+        backRight!!.power = rightBackPower.toDouble().pow(2)
     }
 }
